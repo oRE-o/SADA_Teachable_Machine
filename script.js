@@ -29,7 +29,8 @@ async function init() {
     window.requestAnimationFrame(loop);
 
     // append elements to the DOM
-    document.getElementsByClassName('all').removeChild(button)
+    var child = document.getElementById("canvas");
+    document.getElementById("webcam-container").removeChild(webcam.canvas);
     document.getElementById("webcam-container").appendChild(webcam.canvas);
     labelContainer = document.getElementById("label-container");
     labelText = document.getElementById("label-text");
