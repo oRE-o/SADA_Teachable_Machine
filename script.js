@@ -19,6 +19,8 @@ async function init() {
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
 
+
+
     // Convenience function to setup a webcam
     const flip = true; // whether to flip the webcam
     webcam = new tmImage.Webcam(300, 300, flip); // width, height, flip
@@ -27,12 +29,14 @@ async function init() {
     window.requestAnimationFrame(loop);
 
     // append elements to the DOM
+    // document.getElementById('btn').removeChild()
     document.getElementById("webcam-container").appendChild(webcam.canvas);
     labelContainer = document.getElementById("label-container");
     labelText = document.getElementById("label-text");
     for (let i = 0; i < maxPredictions; i++) { // and class labels
         labelContainer.appendChild(document.createElement("div"));
     }
+
 }
 
 async function loop() {
@@ -40,6 +44,10 @@ async function loop() {
     await predict();
     window.requestAnimationFrame(loop);
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 // run the webcam image through the image model
 async function predict() {
     // predict can take in an image, video or canvas html element
@@ -50,15 +58,21 @@ async function predict() {
         labelContainer.childNodes[i].innerHTML = classPrediction;
     }
 
-    if (prediction[0].probability.toFixed(2) >= 0.8) {
+
+
+    if (prediction[0].probability.toFixed(2) >= 0.8) { // 가위 인식
         predictText = "가위✌️";
-    } else if (prediction[1].probability.toFixed(2) >= 0.8) {
+    } else if (prediction[1].probability.toFixed(2) >= 0.8) { // 주먹 인식
         predictText = "바위✊";
-    } else if (prediction[2].probability.toFixed(2) >= 0.8) {
+    } else if (prediction[2].probability.toFixed(2) >= 0.8) { // 보 인식
         predictText = "보🖐️";
-    } else {
+    } else { // 인식 불가
         predictText = "???";
     }
 
     labelText.innerHTML = '당신은 ' + predictText + '를 내셨군요!';
+
+    // if (prediction[0].probability)
+
+
 }
