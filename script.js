@@ -89,5 +89,9 @@ async function predict() {
     else if (prediction[2].probability.toFixed(2) >= 0.8){ // 보를 냈을 경우
         answeringText.innerHTML = 'AI는 가위를 냈습니다!'
     }
+
+    else { // 인식 안됨
+        answeringText.innerHTML = "정확히 가위/바위/보를 내주세요!"
+    }
     
 }
