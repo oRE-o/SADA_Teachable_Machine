@@ -55,6 +55,7 @@ async function loop() {
 async function predict() {
     // predict can take in an image, video or canvas html element
     const prediction = await model.predict(webcam.canvas);
+
     for (let i = 0; i < maxPredictions; i++) {
         const classPrediction =
             prediction[i].className + ": " + prediction[i].probability.toFixed(2);
@@ -74,8 +75,19 @@ async function predict() {
     }
 
     labelText.innerHTML = '당신은 ' + predictText + '를 내셨군요!';
+    answeringText = document.getElementById("answering-text");
 
-    // if (prediction[0].probability)
 
+    if (prediction[0].probability.toFixed(2) >= 0.8){ // 가위를 냈을 경우
+        answeringText.innerHTML = 'AI는 주먹을 냈습니다!'
+    }
 
+    else if (prediction[1].probability.toFixed(2) >= 0.8){ // 주먹을 냈을 경우
+        answeringText.innerHTML = 'AI는 보를 냈습니다!'
+    }
+    
+    else if (prediction[2].probability.toFixed(2) >= 0.8){ // 보를 냈을 경우
+        answeringText.innerHTML = 'AI는 가위를 냈습니다!'
+    }
+    
 }
