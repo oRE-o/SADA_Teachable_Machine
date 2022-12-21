@@ -71,12 +71,14 @@ async function predict() {
     } else if (prediction[2].probability.toFixed(2) >= 0.8) { // 보 인식
         predictText = "보🖐️";
     } else { // 인식 불가
-        predictText = "???";
+        predictText = "????";
     }
 
     labelText.innerHTML = '당신은 ' + predictText + '를 내셨군요!';
     answeringText = document.getElementById("answering-text");
 
+
+    
 
     if (prediction[0].probability.toFixed(2) >= 0.8){ // 가위를 냈을 경우
         answeringText.innerHTML = 'AI는 주먹을 냈습니다!'
